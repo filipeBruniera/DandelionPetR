@@ -28,12 +28,21 @@ class PetResource extends Resource
 
     public static function table(Tables\Table $table): Tables\Table
     {
-        return $table->columns([
-            Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('species')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('breed')->sortable(),
-            Tables\Columns\TextColumn::make('birth_date')->date()->sortable(),
-        ]);
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('species')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('breed')->sortable(),
+                Tables\Columns\TextColumn::make('birth_date')->date()->sortable(),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),  // << ESTE é o botão de visualizar
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
     }
 
     public static function getPages(): array
@@ -42,6 +51,7 @@ class PetResource extends Resource
             'index' => Pages\ListPets::route('/'),
             'create' => Pages\CreatePet::route('/create'),
             'edit' => Pages\EditPet::route('/{record}/edit'),
+            'view' => Pages\ViewPet::route('/{record}'),
         ];
     }
 }
