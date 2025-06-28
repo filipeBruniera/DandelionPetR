@@ -19,4 +19,9 @@ class Pet extends Model
     {
         return $this->hasMany(\App\Models\Reminder::class);
     }
+
+    public function vaccinations()
+    {
+        return $this->hasMany(\App\Models\Vaccination::class);
+    }
 }

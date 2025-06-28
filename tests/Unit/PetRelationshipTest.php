@@ -27,4 +27,20 @@ class PetRelationshipTest extends TestCase
 
         $this->assertInstanceOf(HasMany::class, $pet->reminders());
     }
+
+    /** @test */
+    public function vaccinations_relationship_is_has_many(): void
+    {
+        $pdo = new PDO('sqlite::memory:');
+        $connection = new SQLiteConnection($pdo);
+
+        $resolver = new ConnectionResolver(['testing' => $connection]);
+        $resolver->setDefaultConnection('testing');
+
+        Model::setConnectionResolver($resolver);
+
+        $pet = new Pet();
+
+        $this->assertInstanceOf(HasMany::class, $pet->vaccinations());
+    }
 }

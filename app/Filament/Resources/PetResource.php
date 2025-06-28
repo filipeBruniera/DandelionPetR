@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PetResource\Pages;
+use App\Filament\Resources\PetResource\RelationManagers;
 use App\Models\Pet;
 use Filament\Forms;
 use Filament\Tables;
@@ -52,6 +53,14 @@ class PetResource extends Resource
             'create' => Pages\CreatePet::route('/create'),
             'edit' => Pages\EditPet::route('/{record}/edit'),
             'view' => Pages\ViewPet::route('/{record}'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\ReminderRelationManager::class,
+            RelationManagers\VaccinationsRelationManager::class,
         ];
     }
 }
